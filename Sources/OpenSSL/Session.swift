@@ -71,7 +71,7 @@ public class Session {
     public func setServerNameIndication(hostname: String) throws {
         var hostname = hostname
         let result = SSL_ctrl(ssl, SSL_CTRL_SET_TLSEXT_HOSTNAME, Int(TLSEXT_NAMETYPE_host_name), &hostname)
-        if (result == 0) {
+        if result == 0 {
             throw Error.Session(description: lastSSLErrorDescription)
         }
     }

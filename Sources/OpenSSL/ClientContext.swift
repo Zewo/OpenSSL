@@ -116,7 +116,7 @@ func printCertificate(_ label: String, _ name: UnsafeMutablePointer<X509_NAME>?)
 
     let idx = X509_NAME_get_index_by_NID(name, NID_commonName, -1)
 
-    if !(idx > -1)  {
+    if idx < 0 {
         return
     }
 
