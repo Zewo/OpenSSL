@@ -19,6 +19,12 @@ before_install:
 install:
   - eval "$(curl -sL https://raw.githubusercontent.com/Zewo/Zewo/5254525d9da56df29346fd76e99529c22034d61d/Scripts/install-swiftenv.sh)"
 script:
-  - swift build -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
-  - swift build --configuration release -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      swift build
+      swift build --configuration release
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      swift build -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
+      swift build --configuration release -Xlinker -rpath -Xlinker $(pwd)/.build/release/
+    fi
   - swift test
