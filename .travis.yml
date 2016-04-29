@@ -11,7 +11,6 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         brew update;
         brew install openssl;
-        brew link openssl --force;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
         sudo apt-get -qq update;
@@ -22,6 +21,6 @@ install:
 script:
   - swift build --fetch # clones all dependencies
   - rm -rf Packages/*/Tests # deletes dependency's tests until duplicate Package.tests issue can be resolved in SPM. At that point, remove.
-  - swift build -Xcc -I/usr/local/include -Xlinker -L/usr/local/lib -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
-  - swift build --configuration release -Xcc -I/usr/local/include -Xlinker -L/usr/local/lib -Xlinker -rpath -Xlinker $(pwd)/.build/release/
+  - swift build
+  - swift build --configuration release
   - swift test
