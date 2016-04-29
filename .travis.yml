@@ -21,6 +21,6 @@ install:
 script:
   - swift build --fetch # clones all dependencies
   - rm -rf Packages/*/Tests # deletes dependency's tests until duplicate Package.tests issue can be resolved in SPM. At that point, remove.
-  - swift build
-  - swift build --configuration release
+  - swift build -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
+  - swift build --configuration release -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
   - swift test
